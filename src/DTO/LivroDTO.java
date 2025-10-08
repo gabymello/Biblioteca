@@ -56,10 +56,4 @@ public class LivroDTO {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-
-    public int getAno_publicacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-}
-    
 }
