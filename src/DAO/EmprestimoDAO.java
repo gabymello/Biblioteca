@@ -16,12 +16,13 @@ public class EmprestimoDAO {
 
     // INSERIR
     public void inserirEmprestimo(EmprestimoDTO objEmprestimoDTO) {
-        String sql = "INSERT INTO emprestimo (id_livro, nome_cliente, data_emprestimo, data_devolucao, status_emprestimo) "
+        String sql = "INSERT INTO emprestimo (id_emprestimo, id_livro, nome_cliente, data_emprestimo, data_devolucao, status_emprestimo) "
                    + "VALUES (?, ?, ?, ?, ?)";
         conexao = ConexaoDAO.conector();
 
         try {
             pst = conexao.prepareStatement(sql);
+             pst.setInt(1, objEmprestimoDTO.getId_emprestimo());
             pst.setInt(1, objEmprestimoDTO.getId_livro());
             pst.setString(2, objEmprestimoDTO.getNome_cliente());
             pst.setString(3, objEmprestimoDTO.getData_emprestimo());
@@ -71,6 +72,7 @@ public class EmprestimoDAO {
 
         try {
             pst = conexao.prepareStatement(sql);
+             pst.setInt(1, objEmprestimoDTO.getId_emprestimo());
             pst.setInt(1, objEmprestimoDTO.getId_livro());
             pst.setString(2, objEmprestimoDTO.getNome_cliente());
             pst.setString(3, objEmprestimoDTO.getData_emprestimo());
@@ -109,7 +111,6 @@ public class EmprestimoDAO {
 
     // LIMPAR CAMPOS (referenciando sua tela)
     public void limparCampos() {
-        TelaEmprestimo.txtIdEmprestimo.setText(null);
         TelaEmprestimo.txtIdLivro.setText(null);
         TelaEmprestimo.txtNomeCliente.setText(null);
         TelaEmprestimo.txtDataEmprestimo.setText(null);

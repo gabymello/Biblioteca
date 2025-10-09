@@ -2,8 +2,8 @@
 package DTO;
 
 public class UsuarioDTO {
-     private int id_usuario;
-    private String nome, email, telefone, tipo, login_usuario, senha_usuario;
+    private int id_usuario;
+    private String nome, email, telefone, login_usuario, senha_usuario;
 
     public String getLogin_usuario() {
         return login_usuario;
@@ -51,14 +51,6 @@ public class UsuarioDTO {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 }
     

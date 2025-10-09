@@ -69,7 +69,6 @@ public class UsuarioDAO {
             pst.setString(1, objUsuarioDTO.getNome());
             pst.setString(2, objUsuarioDTO.getEmail());
             pst.setString(3, objUsuarioDTO.getTelefone());
-            pst.setString(4, objUsuarioDTO.getTipo());
 
             int add = pst.executeUpdate();
             if (add > 0) {
@@ -96,7 +95,6 @@ public class UsuarioDAO {
                 TelaUsuario.txtNome.setText(rs.getString("nome"));
                 TelaUsuario.txtEmail.setText(rs.getString("email"));
                 TelaUsuario.txtTelefone.setText(rs.getString("telefone"));
-                TelaUsuario.txtTipo.setText(rs.getString("tipo"));
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não encontrado!");
                 limparCampos();
@@ -117,7 +115,6 @@ public class UsuarioDAO {
             pst.setString(1, objUsuarioDTO.getNome());
             pst.setString(2, objUsuarioDTO.getEmail());
             pst.setString(3, objUsuarioDTO.getTelefone());
-            pst.setString(4, objUsuarioDTO.getTipo());
             pst.setInt(5, objUsuarioDTO.getId_usuario());
 
             int add = pst.executeUpdate();
@@ -153,11 +150,10 @@ public class UsuarioDAO {
 
     // 🔹 LIMPAR CAMPOS
     public void limparCampos() {
-        TelaUsuario.txtId.setText(null);
         TelaUsuario.txtNome.setText(null);
         TelaUsuario.txtEmail.setText(null);
         TelaUsuario.txtTelefone.setText(null);
-        TelaUsuario.txtTipo.setText(null);
+
     }
 }
     

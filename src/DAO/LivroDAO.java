@@ -16,7 +16,7 @@ public class LivroDAO {
 
     // 🔹 INSERIR LIVRO
     public void inserirLivro(LivroDTO objLivroDTO) {
-        String sql = "INSERT INTO livros (titulo, autor, ano_publicacao, genero, quantidade) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO livros (id_livro, titulo, autor, ano_publicacao, genero, quantidade) VALUES (?, ?, ?, ?, ?)";
         conexao = ConexaoDAO.conector();
 
         try {
@@ -51,6 +51,7 @@ public class LivroDAO {
             rs = pst.executeQuery();
 
             if (rs.next()) {
+                TelaLivro.txtIDlivro.setText(rs.getString("id_livro"));
                 TelaLivro.txtTitulo.setText(rs.getString("titulo"));
                 TelaLivro.txtAutor.setText(rs.getString("autor"));
                 TelaLivro.txtAno.setText(String.valueOf(rs.getInt("ano_publicacao")));
@@ -95,7 +96,7 @@ public class LivroDAO {
 
     // 🔹 LIMPAR CAMPOS
     public void limparCampos() {
-        TelaLivro.txtId.setText(null);
+        TelaLivro.txtIDlivro.setText(null);
         TelaLivro.txtTitulo.setText(null);
         TelaLivro.txtAutor.setText(null);
         TelaLivro.txtAno.setText(null);
