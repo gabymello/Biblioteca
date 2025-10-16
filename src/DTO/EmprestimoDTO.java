@@ -4,7 +4,7 @@ package DTO;
 public class EmprestimoDTO {
     private int id_emprestimo;
     private int id_livro;
-    private String nome_cliente;
+    private int id_cliente;
     private String data_emprestimo;
     private String data_devolucao;
     private String status_emprestimo;
@@ -26,12 +26,12 @@ public class EmprestimoDTO {
         this.id_livro = id_livro;
     }
 
-    public String getNome_cliente() {
-        return nome_cliente;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setNome_cliente(String nome_cliente) {
-        this.nome_cliente = nome_cliente;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getData_emprestimo() {
@@ -57,5 +57,7 @@ public class EmprestimoDTO {
     public void setStatus_emprestimo(String status_emprestimo) {
         this.status_emprestimo = status_emprestimo;
     }
+
+   
     
 }

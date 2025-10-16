@@ -5,6 +5,20 @@
  */
 package VIEW;
 
+import DAO.ConexaoDAO;
+import DAO.LivroDAO;
+import DTO.LivroDTO;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author usuario
@@ -16,6 +30,7 @@ public class TelaLivro extends javax.swing.JFrame {
      */
     public TelaLivro() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -29,9 +44,8 @@ public class TelaLivro extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -44,6 +58,9 @@ public class TelaLivro extends javax.swing.JFrame {
         txtAno = new javax.swing.JTextField();
         txtGenero = new javax.swing.JTextField();
         txtQuantidade = new javax.swing.JTextField();
+        btnVoltar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -60,108 +77,153 @@ public class TelaLivro extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel1.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
-        jLabel1.setText("Tela Livro");
+        btnPesquisar.setBackground(new java.awt.Color(255, 255, 255));
+        btnPesquisar.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
-        jButton1.setText("Pesquisar");
+        btnSalvar.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
-        jButton2.setText("Salvar");
-
-        jLabel3.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel3.setText("ID Livro");
 
-        jLabel4.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel4.setText("Título");
 
-        jLabel5.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel5.setText("Autor");
 
-        jLabel2.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel2.setText("Ano Publicação");
 
-        jLabel6.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        txtIDlivro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtAutor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel6.setText("Gênero");
 
-        jLabel7.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel7.setText("Quantidade");
+
+        txtAno.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtGenero.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        txtQuantidade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        btnVoltar.setBackground(new java.awt.Color(255, 255, 255));
+        btnVoltar.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/livro.png"))); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Bell MT", 0, 24)); // NOI18N
+        jLabel9.setText("Tela Livro");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(82, 82, 82)
-                .addComponent(jButton1)
-                .addGap(214, 214, 214))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtIDlivro, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(65, 65, 65)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAno)
-                            .addComponent(txtGenero)
-                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnSalvar)
+                            .addComponent(txtIDlivro, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(txtTitulo)
+                            .addComponent(txtAutor))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(btnVoltar)
+                                .addGap(156, 156, 156)
+                                .addComponent(btnPesquisar))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6))
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                    .addComponent(txtGenero)
+                                    .addComponent(txtAno)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(316, 316, 316)
-                        .addComponent(jLabel1)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addGap(352, 352, 352)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(68, 68, 68)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel8)))
+                .addGap(81, 81, 81)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
                     .addComponent(txtIDlivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(52, 52, 52)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel6)
                     .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
                     .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
                     .addComponent(jLabel7)
                     .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addGap(90, 90, 90)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(101, 101, 101))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnVoltar)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(109, 109, 109))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,6 +232,170 @@ public class TelaLivro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        TelaLivro tela = new TelaLivro();
+        tela.setVisible(true);
+        this.dispose();
+        
+
+        try {
+            // ----- VALIDAR E PEGAR DADOS -----
+
+            // Título
+            String titulo = txtTitulo.getText().trim();
+            if (titulo.isEmpty()) {
+                //titulo = "Dom Casmurro"; // valor de exemplo
+                JOptionPane.showMessageDialog(this, "Preencha o campo título");
+            }
+
+            // Autor
+            String autor = txtAutor.getText().trim();
+            if (autor.isEmpty()) {
+                //autor = "Machado De Assis"; // valor de exemplo
+                JOptionPane.showMessageDialog(this, "Preencha o campo autor");
+            }
+
+            // Ano
+            int ano=0;
+            if (!txtAno.getText().trim().isEmpty()) {
+                try {
+                    ano = Integer.parseInt(txtAno.getText().trim());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Ano inválido! Digite apenas números.");
+                    txtAno.requestFocus();
+                    return; // para execução
+                }
+            } else {
+                //ano = 1899; // valor de exemplo
+                JOptionPane.showMessageDialog(this, "Preencha o campo Ano de Lançamento");
+            }
+
+            // Gênero
+            String genero = txtGenero.getText().trim();
+            if (genero.isEmpty()) {
+                //genero =; // valor de exemplo
+                JOptionPane.showMessageDialog(this, "Preencha o campo Gênero");
+            }
+
+            // Quantidade
+            int quantidade=0;
+            if (!txtQuantidade.getText().trim().isEmpty()) {
+                try {
+                    quantidade = Integer.parseInt(txtQuantidade.getText().trim());
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Quantidade inválida! Digite apenas números.");
+                    txtQuantidade.requestFocus();
+                    return; // para execução
+                }
+            } else {
+                //quantidade = 2; // valor de exemplo
+                JOptionPane.showMessageDialog(this, "Preencha o campo Quantidade");
+            }
+
+            // ----- CONECTAR AO BANCO -----
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bibliotecaProjeto", "root", "gaby2008");
+
+            String sql = "INSERT INTO livros (titulo, autor, ano_publicacao, genero, quantidade) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, titulo);
+            pst.setString(2, autor);
+            pst.setInt(3, ano);
+            pst.setString(4, genero);
+            pst.setInt(5, quantidade);
+
+            pst.executeUpdate();
+
+            // ----- MENSAGEM DE SUCESSO -----
+            JOptionPane.showMessageDialog(this,
+                    "Livro salvo com sucesso!\n\n"
+                    + "Título: " + titulo + "\n"
+                    + "Autor: " + autor + "\n"
+                    + "Ano: " + ano + "\n"
+                    + "Gênero: " + genero + "\n"
+                    + "Quantidade: " + quantidade
+            );
+
+            // ----- LIMPAR CAMPOS -----
+            txtIDlivro.setText("");
+            txtTitulo.setText("");
+            txtAutor.setText("");
+            txtAno.setText("");
+            txtGenero.setText("");
+            txtQuantidade.setText("");
+
+            // ----- FECHAR CONEXÃO -----
+            pst.close();
+            conn.close();
+
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        try {
+            // Pegar título digitado para pesquisa
+            String tituloPesquisa = txtTitulo.getText();
+
+            // Conectar ao banco
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bibliotecaProjeto", "root", "gaby2008");
+
+            // SQL usando LIKE para pesquisa parcial
+            String sql = "SELECT * FROM livros WHERE titulo LIKE ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, "%" + tituloPesquisa + "%");
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                // Mostrar mensagem com os dados do livro
+                JOptionPane.showMessageDialog(this,
+                        "Livro encontrado!\n\n"
+                        + "ID: " + rs.getInt("id_livro") + "\n"
+                        + // Nome da coluna que armazena o ID do livro
+                        "Título: " + rs.getString("titulo") + "\n"
+                        + // Nome da coluna que armazena o título
+                        "Autor: " + rs.getString("autor") + "\n"
+                        + // Nome da coluna que armazena o autor
+                        "Ano: " + rs.getInt("ano_publicacao") + "\n"
+                        + // Nome da coluna que armazena o ano de publicação
+                        "Gênero: " + rs.getString("genero") + "\n"
+                        + // Nome da coluna que armazena o gênero
+                        "Quantidade: " + rs.getInt("quantidade") // Nome da coluna que armazena a quantidade
+                );
+
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Livro não encontrado!");
+            }
+
+            rs.close();
+            pst.close();
+            conn.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro na pesquisa: " + e.getMessage());
+        }
+
+        TelaLivro tela = new TelaLivro();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+
+        TelaPrincipal tela = new TelaPrincipal();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,15 +433,17 @@ public class TelaLivro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField txtAno;

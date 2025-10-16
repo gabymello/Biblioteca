@@ -5,6 +5,18 @@
  */
 package VIEW;
 
+import static VIEW.TelaLivro.txtAno;
+import static VIEW.TelaLivro.txtAutor;
+import static VIEW.TelaLivro.txtGenero;
+import static VIEW.TelaLivro.txtIDlivro;
+import static VIEW.TelaLivro.txtQuantidade;
+import static VIEW.TelaLivro.txtTitulo;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author usuario
@@ -16,6 +28,7 @@ public class TelaUsuario extends javax.swing.JFrame {
      */
     public TelaUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -35,8 +48,12 @@ public class TelaUsuario extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtTipo = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,20 +62,59 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bell MT", 0, 24)); // NOI18N
         jLabel1.setText("Tela Usuario");
 
-        jLabel2.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel2.setText("Nome");
 
-        jLabel3.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel3.setText("E-mail");
 
-        jLabel4.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel4.setText("Telefone");
 
-        jButton1.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
-        jButton1.setText("Adicionar");
+        txtNome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jButton2.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
-        jButton2.setText("Pesquisar");
+        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
+        txtTelefone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        btnAdicionar.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdicionar.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar.setBackground(new java.awt.Color(255, 255, 255));
+        btnPesquisar.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setBackground(new java.awt.Color(255, 255, 255));
+        btnVoltar.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
+        jLabel5.setText("Tipo");
+
+        txtTipo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Fotos/tela.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -67,49 +123,69 @@ public class TelaUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(jLabel1))
+                        .addGap(93, 93, 93)
+                        .addComponent(btnAdicionar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
+                        .addGap(175, 175, 175)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(16, 16, 16)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtEmail)
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(34, 34, 34)
+                                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(btnPesquisar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(94, 94, 94)
-                                .addComponent(jButton2)))))
-                .addContainerGap(155, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel6))
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addGap(72, 72, 72)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel6)))
+                .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(97, 97, 97))
+                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnVoltar)
+                    .addComponent(btnPesquisar))
+                .addGap(90, 90, 90))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,6 +201,122 @@ public class TelaUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        TelaLivro tela = new TelaLivro();
+        tela.setVisible(true);
+        this.dispose();
+
+        try {
+
+            String nome = txtNome.getText().trim();
+            if (nome.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha o campo nome");
+            }
+
+            String email = txtEmail.getText().trim();
+            if (email.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha o campo email");
+            }
+
+            String telefone = txtTelefone.getText().trim();
+            if (telefone.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha o campo telefone");
+            }
+
+            String tipo = txtTipo.getText().trim();
+            if (tipo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha o campo tipo");
+            }
+
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bibliotecaProjeto", "root", "gaby2008");
+
+            String sql = "INSERT INTO usuarios (nome, email, telefone, tipo) VALUES (?, ?, ?, ?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, nome);
+            pst.setString(2, email);
+            pst.setString(3, telefone);
+            pst.setString(4, tipo);
+
+            pst.executeUpdate();
+
+            JOptionPane.showMessageDialog(this,
+                    "Usuario salvo com sucesso!\n\n"
+                    + "Nome:" + nome + "\n"
+                    + "Email: " + email + "\n"
+                    + "Telefone: " + telefone + "\n"
+                    + "Tipo: " + tipo + "\n"
+            );
+
+            txtNome.setText("");
+            txtEmail.setText("");
+            txtTelefone.setText("");
+            txtTipo.setText("");
+
+            pst.close();
+            conn.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar: " + e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+
+        try {
+            String nomePesquisa = txtNome.getText();
+
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bibliotecaProjeto", "root", "gaby2008");
+
+            // SQL usando LIKE para pesquisa parcial
+            String sql = "SELECT * FROM usuarios WHERE nome LIKE ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, "%" + nomePesquisa + "%");
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this,
+                        "Usuario encontrado!\n\n"
+                        + "Id: " + rs.getInt("id_usuario") + "\n"
+                        + // Nome da coluna que armazena o ID do livro
+                        "Nome: " + rs.getString("Nome") + "\n"
+                        + // Nome da coluna que armazena o título
+                        "Email: " + rs.getString("Email") + "\n"
+                        + // Nome da coluna que armazena o autor
+                        "Telefone: " + rs.getString("telefone") + "\n"
+                        + 
+                        "Tipo: " +rs.getString("tipo") + "\n"
+                );
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario não encontrado!");
+            }
+
+            rs.close();
+            pst.close();
+            conn.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro na pesquisa: " + e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        TelaPrincipal tela = new TelaPrincipal();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,15 +354,19 @@ public class TelaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     public static javax.swing.JTextField txtEmail;
     public static javax.swing.JTextField txtNome;
     public static javax.swing.JTextField txtTelefone;
+    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }

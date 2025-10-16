@@ -3,17 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/DTO/EmprestimoDTO.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/DAO/LivroDAO.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/DAO/UsuarioDAO.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/VIEW/TelaLogin.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/VIEW/TelaEmprestimo.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/DAO/EmprestimoDAO.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/VIEW/TelaLivro.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/DTO/LivroDTO.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/DTO/UsuarioDTO.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/VIEW/TelaUsuario.java</file>
-            <file>file:/C:/Users/usuario/Documents/NetBeansProjects/ProjetoBiblioteca/Biblioteca/src/VIEW/TelaPrincipal.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DAO/ConexaoDAO.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/VIEW/TelaPrincipal.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DTO/EmprestimoDTO.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DTO/ClienteDTO.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/VIEW/TelaEmprestimo.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DAO/ClienteDAO.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/VIEW/TelaLivro.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DAO/EmprestimoDAO.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/VIEW/TelaCliente.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/VIEW/TelaUsuario.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/VIEW/TelaLogin.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DAO/LivroDAO.java</file>
+            <file>file:/C:/Users/gabri/Downloads/Biblioteca/src/DTO/LivroDTO.java</file>
         </group>
     </open-files>
 </project-private>
